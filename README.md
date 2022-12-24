@@ -15,7 +15,7 @@ create-react-app fricktrees
 
 # Database structure
 
-{
+"firebaseurl" : {
 
 	"users" : {
 	
