@@ -17,17 +17,15 @@ class ScoreBox extends Component {
   };
 
   render() {
+    const { hole, strokes } = this.state;
+
     return (
       <div>
-        <h1>Hole: {this.state.hole}</h1>
-        <h2>Strokes: {this.state.strokes}</h2>
+        <h1>Hole: {hole}</h1>
+        <h2>Strokes: {strokes}</h2>
         <button onClick={this.handleIncrement}>+</button>
         <button onClick={this.handleDecrement}>-</button>
-        <button
-          onClick={() =>
-            this.props.onSubmit(this.state.hole, this.state.strokes)
-          }
-        >
+        <button onClick={() => this.props.onSubmit(hole, strokes)}>
           Submit
         </button>
       </div>
