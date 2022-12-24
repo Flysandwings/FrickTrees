@@ -16,19 +16,33 @@ create-react-app fricktrees
 # Database structure
 
 {
+
 	"users" : {
+	
 		"Andrew@mail.com" : {
+		
 			name: "Andrew",
+			
 			scores : {
+			
 				ninigret : {
+				
 					0 : { 
+					
 						{ 1, 3 },
+						
 						{ 2, 4 },
+						
 						{ 3, 5 }
+						
 					}
+					
 				}
+				
 			}
+			
 		},
+		
 		"Drew" : {
 		
 		},
