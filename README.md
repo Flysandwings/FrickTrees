@@ -19,9 +19,9 @@ create-react-app fricktrees
 "firebaseurl" : {
 	"users" : {
 		"Andrew@mail.com" : {
-			name: "Andrew",
-			scores : {
-				ninigret : {
+			"name" : "Andrew",
+			"scores" : {
+				"ninigret" : {
 					0 : { 
 						{ 1, 3 },
 						{ 2, 4 },
