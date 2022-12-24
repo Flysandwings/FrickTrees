@@ -1,7 +1,7 @@
 # FrickTrees
 
 # Setup for git cloning
--- TODO: add
+git clone https://github.com/Flysandwings/FrickTrees.git
 
 # Once cloned to machine
 npm start
