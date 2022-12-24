@@ -14,7 +14,7 @@ npm install -g npm@9.2.0
 create-react-app fricktrees
 
 # Database structure
-'''json
+```json
 
 "firebaseurl" : {
 
@@ -57,4 +57,4 @@ create-react-app fricktrees
 	}
 	
 }
-'''
+```
