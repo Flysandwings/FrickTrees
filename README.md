@@ -22,10 +22,10 @@ create-react-app fricktrees
 			"name" : "Andrew"
 			"courses" : {
 				"ninigret" : {
-					0 : {
-						0:3,
-						1:4,
-						2:5
+					"0" : {
+						"0" : "3",
+						"1" : "4",
+						"2" : "5"
 					},
 					1:{
 						0:6,
