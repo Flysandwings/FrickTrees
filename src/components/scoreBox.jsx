@@ -2,8 +2,8 @@ import React, { Component } from "react";
 
 class ScoreBox extends Component {
   render() {
-    const { hole, strokes } = this.props.score;
     const { score } = this.props;
+    const { hole, strokes } = this.props.score;
 
     return (
       <div>
