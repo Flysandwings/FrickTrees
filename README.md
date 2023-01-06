@@ -18,21 +18,35 @@ create-react-app fricktrees
 
 "firebaseurl" : {
 	"users" : {
-		"Andrew@mail.com" : {
-			"name" : "Andrew",
-			"scores" : {
+		"bcostanzo" : {
+			"name" : "Andrew"
+			"courses" : {
 				"ninigret" : {
-					0 : { 
-						{ 1, 3 },
-						{ 2, 4 },
-						{ 3, 5 }
+					"0" : {
+						"0" : "3",
+						"1" : "4",
+						"2" : "5"
+					},
+					"1" : {
+						"0" : "6",
+						"1" : "7",
+						"2" : "8"
+					}
+				},
+				"willow valley" : {
+					"0" : {
+						"0" : "8",
+						"1" : "7",
+						"2" : "6"
+					},
+					"1" : {
+						"0" : "5",
+						"1" : "4",
+						"2" : "3"
 					}
 				}
 			}
-		},
-		"Drew" : {},
-		"Will" : {},
-		"Keegan" : {}
+		}
 	}
 }
 ```
