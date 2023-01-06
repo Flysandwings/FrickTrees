@@ -2,14 +2,30 @@ import React, { Component } from "react";
 import ScoreBox from "./scoreBox";
 import WaitingModule from "./waitingModule";
 import { db } from "../firebase";
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, onValue, set, update } from "firebase/database";
 
 class ScorePage extends Component {
+  /**
+   *  this.state: {
+   *    name : AndrewB
+   *    course : ninigret
+   *    scores : [
+   *      { hole: 1, strokes: 3 },
+   *      { hole: 2, strokes: 4 },
+   *      { hole: 3, strokes: 5 }
+   *    ]
+   *
+   *    0 : { 0:3 , 1:4, 2:5 }
+   *    1 : { 0:6, 1:7, 2: 8 }
+   *
+   * }
+   */
+
   db = getDatabase();
 
   getName = () => {
     let data;
-    const name = ref(db, "users/acostanzo/name");
+    const name = ref(db, "users/bcostanzo/name");
     onValue(name, (snapshot) => {
       data = snapshot.val();
       this.setState({ name: data });
@@ -19,7 +35,7 @@ class ScorePage extends Component {
   // todo get the name of the course too
   getCourseName = () => {
     let data;
-    const course = ref(db, "users/acostanzo/scores");
+    const course = ref(db, "users/bcostanzo/courses");
     onValue(course, (snapshot) => {
       data = snapshot.val();
       data = Object.keys(data)[0];
@@ -28,19 +44,19 @@ class ScorePage extends Component {
   };
 
   handleSubmit = () => {
-    let temp = this.transformScores(this.state.scores);
-    set(ref(db, "users/acostanzo/scores"), {
-      ninigret: temp,
-    });
+    const gameNumber = 0;
+    const updates = {};
+    let temp = this.transformScores(this.state.scores, gameNumber);
+
+    updates[`users/bcostanzo/courses/ninigret/${gameNumber}`] = temp;
+    update(ref(db), updates);
   };
 
   transformScores = (obj) => {
-    let scoreList = {
-      scores: [],
-    };
+    let scoreList = [];
 
     for (let i = 0; i < obj.length; i++) {
-      scoreList.scores[i] = obj[i].strokes;
+      scoreList[i] = obj[i].strokes;
     }
     return scoreList;
   };
@@ -52,28 +68,32 @@ class ScorePage extends Component {
       course: "Empty",
       scores: [],
     };
-    this.getName();
-    this.getCourseName();
   }
 
   componentDidMount() {
+    this.getName();
+    this.getCourseName();
+
     let data;
-    const db_scores = ref(db, "users/acostanzo/scores/ninigret");
-    onValue(db_scores, (snapshot) => {
+    const scores = [...this.state.scores];
+    const game = ref(db, "users/bcostanzo/courses/ninigret/0");
+    onValue(game, (snapshot) => {
       data = snapshot.val();
-      let newScores = [];
-      for (let i = 0; i < data.scores.length; i++) {
-        let obj = {
-          hole: i + 1,
-          strokes: data.scores[i],
-        };
-        newScores.push(obj);
+      for (let i = 0; i < data.length; i++) {
+        let obj = { hole: i + 1, strokes: data[i] };
+
+        if (scores.length != data.length) {
+          scores.push(obj);
+        }
+
+        const target = scores.find((e) => {
+          return e.hole == i + 1;
+        }); // find the obj with the same hole as i
+
+        scores[i] = { ...target };
+        scores[i].strokes = data[i];
       }
-      if (newScores.length > 0) {
-        this.setState({ scores: newScores });
-      } else {
-        console.log("no elements");
-      }
+      this.setState({ scores });
     });
   }
 
@@ -86,7 +106,7 @@ class ScorePage extends Component {
   handleIncrement = (score) => {
     const scores = [...this.state.scores];
     const index = scores.indexOf(score);
-    scores[index] = { ...score };
+    scores[index] = { ...score }; // copies the object in the array
     scores[index].strokes++;
     this.setState({ scores });
   };
