@@ -1,10 +1,7 @@
 # FrickTrees
 
 # Plan for tomorrow
-1) Refactor ScorePage more
-a. Pull username variable out
-b. Pull game number out
-c. Pull course name out
+Styles, maybe?
 
 # Setup for git cloning
 git clone https://github.com/Flysandwings/FrickTrees.git
