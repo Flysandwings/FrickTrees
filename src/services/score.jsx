@@ -4,39 +4,22 @@ import { ref, onValue, update } from "firebase/database";
 
 import { fmt } from "../utils/formatter";
 import ScoreBox from "../components/scoreBox";
+import ScoreCard from "../components/scoreCard";
 import WaitingModule from "../components/waitingModule";
 
-class ScoreCard extends Component {
+class Score extends Component {
   constructor(props) {
     super();
     this.state = {
       scores: [],
+      shouldUpdate: false,
     };
     this.basePath = `${props.basePath}/courses/${props.course}/${props.round}`;
+    this.parPath = `${props.basePath}/courses/${props.course}/par`;
   }
 
   componentDidMount() {
-    let data;
-    const scores = [...this.state.scores];
-    const game = ref(db, `${this.basePath}`);
-    onValue(game, (snapshot) => {
-      data = snapshot.val();
-      for (let i = 0; i < data.length; i++) {
-        let obj = { hole: i + 1, strokes: data[i] };
-
-        if (scores.length != data.length) {
-          scores.push(obj);
-        }
-
-        const target = scores.find((e) => {
-          return e.hole == i + 1;
-        }); // find the obj with the same hole as i
-
-        scores[i] = { ...target };
-        scores[i].strokes = data[i];
-      }
-      this.setState({ scores });
-    });
+    this.load();
   }
 
   render() {
@@ -57,9 +40,51 @@ class ScoreCard extends Component {
           <WaitingModule />
         )}
         <button onClick={() => this.handleSubmit()}>Submit</button>
+        {scores.length !== 0 ? (
+          <ScoreCard scores={scores} shouldUpdate={this.state.shouldUpdate} />
+        ) : (
+          <h1>Score card not available...</h1>
+        )}
       </div>
     );
   }
+
+  load = () => {
+    let data;
+    const pars = [];
+    const par = ref(db, `${this.parPath}`);
+    onValue(par, (snapshot) => {
+      data = snapshot.val();
+      for (let i = 0; i < data.length; i++) {
+        pars.length !== data.length && pars.push(data[i]);
+      }
+      this.displayScore(pars);
+    });
+  };
+
+  displayScore = (parList) => {
+    let data;
+    const scores = [...this.state.scores];
+    const game = ref(db, `${this.basePath}`);
+    onValue(game, (snapshot) => {
+      data = snapshot.val();
+      for (let i = 0; i < data.length; i++) {
+        let obj = { hole: i + 1, strokes: data[i], par: parList[i] };
+
+        if (scores.length !== data.length) {
+          scores.push(obj);
+        }
+
+        const target = scores.find((e) => {
+          return e.hole === i + 1;
+        }); // find the obj with the same hole as i
+
+        scores[i] = { ...target };
+        scores[i].strokes = data[i];
+      }
+      this.setState({ scores });
+    });
+  };
 
   handleSubmit = () => {
     const updates = {};
@@ -67,6 +92,7 @@ class ScoreCard extends Component {
 
     updates[`${this.basePath}`] = temp;
     update(ref(db), updates);
+    this.setState({ shouldUpdate: !this.state.shouldUpdate });
   };
 
   /**
@@ -93,4 +119,4 @@ class ScoreCard extends Component {
   };
 }
 
-export default ScoreCard;
+export default Score;

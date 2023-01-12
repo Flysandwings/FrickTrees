@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import PlayerInformation from "../services/playerInformation";
 import CourseInformation from "../services/courseInformation";
-import ScoreCard from "../services/scoreCard";
+import Score from "../services/score";
 
 class ScorePage extends Component {
   /**
@@ -10,9 +10,9 @@ class ScorePage extends Component {
    *    name : AndrewB
    *    course : ninigret
    *    scores : [
-   *      { hole: 1, strokes: 3 },
-   *      { hole: 2, strokes: 4 },
-   *      { hole: 3, strokes: 5 }
+   *      { hole: 1, strokes: 3, par: 7 },
+   *      { hole: 2, strokes: 4, par: 8  },
+   *      { hole: 3, strokes: 5, par: 9 }
    *    ]
    *
    *    0 : { 0:3 , 1:4, 2:5 }
@@ -30,7 +30,7 @@ class ScorePage extends Component {
       <div>
         {/*<PlayerInformation basePath={ScorePage.basePath} />*/}
         {/*<CourseInformation basePath={ScorePage.basePath} />*/}
-        <ScoreCard
+        <Score
           basePath={ScorePage.basePath}
           course={ScorePage.course}
           round={ScorePage.round}

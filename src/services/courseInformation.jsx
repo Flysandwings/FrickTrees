@@ -6,8 +6,8 @@ class CourseInformation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      course: "",
-      rounds: 0,
+      course: null,
+      rounds: null,
     };
     this.basePath = props.basePath;
   }
@@ -22,7 +22,7 @@ class CourseInformation extends Component {
     return (
       <div>
         {course ? <h1>Course: {course}</h1> : <h1>Loading course...</h1>}
-        {rounds !== 0 ? (
+        {rounds ? (
           <h1>Number of rounds: {rounds}</h1>
         ) : (
           <h1>No rounds played</h1>
@@ -36,10 +36,12 @@ class CourseInformation extends Component {
     const courseName = ref(db, `${this.basePath}/courses`);
     onValue(courseName, (snapshot) => {
       data = snapshot.val();
-      let course = Object.keys(data)[0];
-      let rounds = Object.keys(data).length;
-      this.setState({ rounds });
-      this.setState({ course });
+      if (data) {
+        let course = Object.keys(data)[0];
+        let rounds = Object.keys(data).length;
+        this.setState({ rounds });
+        this.setState({ course });
+      }
     });
   };
 }

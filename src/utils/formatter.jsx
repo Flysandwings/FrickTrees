@@ -9,10 +9,6 @@ class Formatter extends Component {
     }
     return scoreList;
   };
-
-  render() {
-    return <p>Hello world</p>;
-  }
 }
 
 export const fmt = new Formatter();
