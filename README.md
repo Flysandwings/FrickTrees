@@ -1,7 +1,7 @@
 # FrickTrees
 
 # Plan for tomorrow
-Styles, maybe?
+Try a graph
 
 # Setup for git cloning
 git clone https://github.com/Flysandwings/FrickTrees.git
