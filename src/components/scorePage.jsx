@@ -3,6 +3,10 @@ import React, { Component } from "react";
 import PlayerInformation from "../services/playerInformation";
 import CourseInformation from "../services/courseInformation";
 import Score from "../services/score";
+import ScoreService from "../services/scoreService";
+import Graph from "./graph";
+import ScoreCard from "./scoreCard";
+import CounterButton from "../services/new";
 
 class ScorePage extends Component {
   /**
@@ -19,6 +23,18 @@ class ScorePage extends Component {
    *    1 : { 0:6, 1:7, 2: 8 }
    *
    * }
+   * 
+   * 
+   * <div>
+        <PlayerInformation basePath={ScorePage.basePath} />
+        <CourseInformation basePath={ScorePage.basePath} />
+        <Score
+          basePath={ScorePage.basePath}
+          course={ScorePage.course}
+          round={ScorePage.round}
+        />
+      </div>
+      {/*<Graph />;}<ScoreCard />
    */
 
   static basePath = "users/bcostanzo";
@@ -26,17 +42,7 @@ class ScorePage extends Component {
   static round = 0;
 
   render() {
-    return (
-      <div>
-        {/*<PlayerInformation basePath={ScorePage.basePath} />*/}
-        {/*<CourseInformation basePath={ScorePage.basePath} />*/}
-        <Score
-          basePath={ScorePage.basePath}
-          course={ScorePage.course}
-          round={ScorePage.round}
-        />
-      </div>
-    );
+    return <Graph />;
   }
 }
 

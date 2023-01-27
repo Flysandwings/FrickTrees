@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { scoreService } from "../services/scoreService";
+
 class ScoreCard extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,7 @@ class ScoreCard extends Component {
   }
 
   translateToTable = (data) => {
-    const { scores } = data;
+    const scores = data;
     const tableData = [["Hole", "Strokes", "Par"]];
     scores.forEach((score) => {
       tableData.push([score.hole, score.strokes, score.par]);
@@ -18,7 +20,9 @@ class ScoreCard extends Component {
   };
 
   componentDidMount() {
-    this.translateToTable(this.props);
+    scoreService.getData().then((data) => {
+      this.translateToTable(data);
+    });
   }
 
   componentDidUpdate(prevProps) {
