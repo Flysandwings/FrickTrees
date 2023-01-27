@@ -1,7 +1,7 @@
 # FrickTrees
 
 # Plan for tomorrow
-Try a graph
+Clean up, optimize, if time : collections
 
 # Setup for git cloning
 git clone https://github.com/Flysandwings/FrickTrees.git
