@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 
-import PlayerInformation from "../services/playerInformation";
-import CourseInformation from "../services/courseInformation";
-import Score from "../services/score";
-import ScoreService from "../services/scoreService";
-import Graph from "./graph";
-import ScoreCard from "./scoreCard";
-import CounterButton from "../services/new";
+//import PlayerInformation from "../services/playerInformation";
+//import CourseInformation from "../services/courseInformation";
+import ScoreTracker from "./views/scoreTracker";
+//import ScoreService from "../services/scoreService";
+//import Graph from "./views/graph";
+//import ScoreCard from "./views/scoreCard";
 
 class ScorePage extends Component {
   /**
@@ -35,14 +34,18 @@ class ScorePage extends Component {
         />
       </div>
       {/*<Graph />;}<ScoreCard />
+
+      return <Graph info={ScorePage.infoObject} />;
    */
 
   static basePath = "users/bcostanzo";
-  static course = "ninigret";
-  static round = 0;
+  static infoObject = {
+    course: "ninigret",
+    round: 1,
+  };
 
   render() {
-    return <Graph />;
+    return <ScoreTracker info={ScorePage.infoObject} />;
   }
 }
 

@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 
-import { scoreService } from "../services/scoreService";
+import { scoreService } from "../../services/scoreService";
 
 class Graph extends Component {
   constructor(props) {
@@ -17,24 +17,27 @@ class Graph extends Component {
     this.state = {
       graphData: null,
     };
+    this.round = this.props.info.round;
+    this.course = this.props.info.course;
   }
 
   translateToGraph(data) {
     const scores = data;
     const graphData = [];
-
-    scores.forEach((score) => {
-      graphData.push({
-        name: `hole${score.hole}`,
-        uv: score.strokes,
-        pv: score.par,
+    if (scores) {
+      scores.forEach((score) => {
+        graphData.push({
+          name: `hole${score.hole}`,
+          uv: score.strokes,
+          pv: score.par,
+        });
       });
-    });
-    this.setState({ graphData });
+      this.setState({ graphData });
+    }
   }
 
   componentDidMount() {
-    scoreService.getData().then((data) => {
+    scoreService.getData(this.round, this.course).then((data) => {
       this.translateToGraph(data);
     });
   }
@@ -75,7 +78,7 @@ class Graph extends Component {
             <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
           </LineChart>
         ) : (
-          <h1>Null</h1>
+          <h1>You do not have any data for this round.</h1>
         )}
       </div>
     );

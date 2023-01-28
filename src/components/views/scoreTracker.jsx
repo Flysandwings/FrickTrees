@@ -1,25 +1,25 @@
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import React, { Component } from "react";
-import { ref, onValue, update } from "firebase/database";
+import { ref, update } from "firebase/database";
 
-import { fmt } from "../utils/formatter";
-import ScoreBox from "../components/scoreBox";
-import ScoreCard from "../components/scoreCard";
-import WaitingModule from "../components/waitingModule";
-import Graph from "../components/graph";
-import { scoreService } from "./scoreService";
+import { fmt } from "../../utils/formatter";
+import { scoreService } from "../../services/scoreService";
 
-class Score extends Component {
+import ScoreBox from "./subviews/scoreBox";
+import WaitingModule from "../waitingModule";
+
+class ScoreTracker extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       scores: null,
     };
-    this.courseName = "ninigret";
+    this.round = this.props.info.round;
+    this.course = this.props.info.course;
   }
 
   componentDidMount() {
-    scoreService.getData().then((data) => {
+    scoreService.getData(this.round, this.course).then((data) => {
       const scores = data;
       this.translateToScoreBox(scores);
     });
@@ -28,15 +28,16 @@ class Score extends Component {
   translateToScoreBox(data) {
     const scores = data;
     const scoreBoxData = [];
-
-    scores.forEach((score) => {
-      scoreBoxData.push({
-        hole: score.hole,
-        strokes: score.strokes,
-        par: score.par,
+    if (scores) {
+      scores.forEach((score) => {
+        scoreBoxData.push({
+          hole: score.hole,
+          strokes: score.strokes,
+          par: score.par,
+        });
       });
-    });
-    this.setState({ scores: scoreBoxData });
+      this.setState({ scores: scoreBoxData });
+    }
   }
 
   render() {
@@ -56,7 +57,9 @@ class Score extends Component {
         ) : (
           <WaitingModule />
         )}
-        <button onClick={() => this.handleSubmit()}>Submit</button>
+        {scores ? (
+          <button onClick={() => this.handleSubmit()}>Submit</button>
+        ) : null}
       </div>
     );
   }
@@ -69,12 +72,6 @@ class Score extends Component {
     update(ref(db), updates);
   };
 
-  /**
-   *  1) clone array
-   *  2) update value
-   *  3) update state
-   * @param {*} score
-   */
   handleIncrement = (score) => {
     const scores = [...this.state.scores];
     const index = scores.indexOf(score);
@@ -93,4 +90,4 @@ class Score extends Component {
   };
 }
 
-export default Score;
+export default ScoreTracker;

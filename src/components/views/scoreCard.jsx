@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { scoreService } from "../services/scoreService";
+import { scoreService } from "../../services/scoreService";
 
 class ScoreCard extends Component {
   constructor(props) {
@@ -8,19 +8,23 @@ class ScoreCard extends Component {
     this.state = {
       tableData: null,
     };
+    this.round = this.props.info.round;
+    this.course = this.props.info.course;
   }
 
   translateToTable = (data) => {
     const scores = data;
     const tableData = [["Hole", "Strokes", "Par"]];
-    scores.forEach((score) => {
-      tableData.push([score.hole, score.strokes, score.par]);
-    });
-    this.setState({ tableData });
+    if (scores) {
+      scores.forEach((score) => {
+        tableData.push([score.hole, score.strokes, score.par]);
+      });
+      this.setState({ tableData });
+    }
   };
 
   componentDidMount() {
-    scoreService.getData().then((data) => {
+    scoreService.getData(this.round, this.course).then((data) => {
       this.translateToTable(data);
     });
   }
@@ -32,9 +36,10 @@ class ScoreCard extends Component {
   }
 
   render() {
+    const { tableData } = this.state;
     return (
       <div>
-        {this.state.tableData && (
+        {tableData ? (
           <table>
             <thead>
               <tr>
@@ -53,6 +58,8 @@ class ScoreCard extends Component {
               ))}
             </tbody>
           </table>
+        ) : (
+          <h1>You do not have any table data for this round.</h1>
         )}
       </div>
     );
