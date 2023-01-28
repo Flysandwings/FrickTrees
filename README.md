@@ -8,6 +8,8 @@ Make it so a user can create a new round
 
 Display a list of rounds to view data about, graph, scoreTracker, scoreCard
 
+Course and Player service will need updating to new db schema
+
 # Setup for git cloning
 git clone https://github.com/Flysandwings/FrickTrees.git
 
@@ -25,6 +27,17 @@ create-react-app fricktrees
 ```json
 
 "firebaseurl" : {
+	"courses" : {
+		"ninigret" : {
+			"location" : "Park Ln, Charlestown, RI 02813, United States",
+			"name" : "Ninigret Park",
+			"par" : {
+				"0" : "3",
+				"1" : "4",
+				"2" : "3"
+			}
+		}
+	}
 	"users" : {
 		"bcostanzo" : {
 			"name" : "Andrew"
