@@ -1,7 +1,12 @@
 # FrickTrees
 
 # Plan for tomorrow
-Clean up, optimize, if time : collections
+Make the graph better. XY axis labels, figure out dot sizes, graph title. QOL graph things.
+
+# Long term plans
+Make it so a user can create a new round
+
+Display a list of rounds to view data about, graph, scoreTracker, scoreCard
 
 # Setup for git cloning
 git clone https://github.com/Flysandwings/FrickTrees.git
