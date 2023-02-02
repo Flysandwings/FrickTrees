@@ -1,7 +1,7 @@
 # FrickTrees
 
 # Plan for tomorrow
-Make the graph better. XY axis labels, figure out dot sizes, graph title. QOL graph things.
+figure out dot sizes, graph title. Classes for mobile / web graphs
 
 # Long term plans
 Make it so a user can create a new round
