@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 //import PlayerInformation from "../services/playerInformation";
 //import CourseInformation from "../services/courseInformation";
-import ScoreTracker from "./views/scoreTracker";
+//import ScoreTracker from "./views/scoreTracker";
 //import ScoreService from "../services/scoreService";
-//import Graph from "./views/graph";
+import Graph from "./views/graph";
 //import ScoreCard from "./views/scoreCard";
 
 class ScorePage extends Component {
@@ -34,7 +34,7 @@ class ScorePage extends Component {
         />
       </div>
       {/*<Graph />;}<ScoreCard />
-
+      return <ScoreTracker info={ScorePage.infoObject} />;
       return <Graph info={ScorePage.infoObject} />;
    */
 
@@ -45,7 +45,7 @@ class ScorePage extends Component {
   };
 
   render() {
-    return <ScoreTracker info={ScorePage.infoObject} />;
+    return <Graph info={ScorePage.infoObject} />;
   }
 }
 
