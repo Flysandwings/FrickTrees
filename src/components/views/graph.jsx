@@ -42,6 +42,7 @@ class Graph extends Component {
 
   componentDidMount() {
     scoreService.getData(this.round, this.course).then((data) => {
+      console.log(data);
       this.translateToGraph(data);
     });
   }

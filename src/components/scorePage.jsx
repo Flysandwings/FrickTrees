@@ -2,10 +2,11 @@ import React, { Component } from "react";
 
 //import PlayerInformation from "../services/playerInformation";
 //import CourseInformation from "../services/courseInformation";
-//import ScoreTracker from "./views/scoreTracker";
+
 //import ScoreService from "../services/scoreService";
+import ScoreTracker from "./views/scoreTracker";
 import Graph from "./views/graph";
-//import ScoreCard from "./views/scoreCard";
+import ScoreCard from "./views/scoreCard";
 
 class ScorePage extends Component {
   /**
@@ -41,11 +42,50 @@ class ScorePage extends Component {
   static basePath = "users/bcostanzo";
   static infoObject = {
     course: "ninigret",
-    round: 1,
+    round: 0,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      componentToShow: null,
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(component) {
+    this.setState({
+      componentToShow: component,
+    });
+  }
+
   render() {
-    return <Graph info={ScorePage.infoObject} />;
+    return (
+      <div>
+        <button
+          onClick={() =>
+            this.handleClick(<ScoreTracker info={ScorePage.infoObject} />)
+          }
+        >
+          ScoreTracker
+        </button>
+        <button
+          onClick={() =>
+            this.handleClick(<ScoreCard info={ScorePage.infoObject} />)
+          }
+        >
+          ScoreCard
+        </button>
+        <button
+          onClick={() =>
+            this.handleClick(<Graph info={ScorePage.infoObject} />)
+          }
+        >
+          ScoreGraph
+        </button>
+        {this.state.componentToShow}
+      </div>
+    );
   }
 }
 

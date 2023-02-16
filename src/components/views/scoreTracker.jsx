@@ -65,10 +65,11 @@ class ScoreTracker extends Component {
   }
 
   handleSubmit = () => {
+    console.log("submit");
     const updates = {};
     let temp = fmt.transformScores(this.state.scores);
 
-    updates[`users/bcostanzo/courses/${this.courseName}/0`] = temp;
+    updates[`users/bcostanzo/courses/${this.course}/0`] = temp;
     update(ref(db), updates);
   };
 
